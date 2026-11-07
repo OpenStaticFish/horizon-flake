@@ -1,3 +1,8 @@
 # Only this organization maintainer can supply the required code-owner approval.
 # Add an OpenStaticFish maintainer team here when additional maintainers join.
 * @MichaelFisher1997
+
+# These existing metadata files are the ONLY review-free update paths.
+# All merges still require CI; the auto-merger separately enforces bot identity and exact SHA.
+/sources.json
+/flake.lock

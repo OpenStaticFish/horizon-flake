@@ -94,7 +94,9 @@ assets are included in this flake. See the
    label, exact checked SHA, and an allowlist containing only `sources.json` and
    `flake.lock`, then squash-merges through GitHub's protected-branch API.
 
-No extra secret or self-hosted runner is required: automation uses `GITHUB_TOKEN`
+Only the two metadata files are exempt from code-owner review; the bot has no
+ruleset-bypass permission. No extra secret or self-hosted runner is required:
+automation uses `GITHUB_TOKEN`
 and GitHub-hosted Ubuntu runners. The check workflow also runs on normal pushes
 and pull requests. Bot pushes do not trigger push workflows, so update PR checks
 are explicitly dispatched. The bot cannot bypass required CI or push to `main`.
@@ -119,9 +121,11 @@ repository. There is no background user timer or launch-time launcher update.
 Anyone can read, fork, open issues, and submit a pull request. Outside contributors
 have no write or merge access. `main` requires PRs, successful GitHub Actions
 `check`, an up-to-date branch, and resolved conversations; force pushes and
-deletion are blocked. Human PRs require maintainer/code-owner approval. Org owners
+deletion are blocked. Code and workflow PRs require maintainer/code-owner approval. Org owners
 may merge their own PRs after CI, avoiding a two-person deadlock for the initial
-single-maintainer org. Only org owners and the guarded update bot can merge `main`.
+single-maintainer org. Write access is reserved for organization maintainers;
+there are no outside collaborators with write access. The guarded update bot can
+merge only its own metadata-only PRs, never external contributors' PRs.
 
 All external fork workflows require maintainer approval and run read-only on
 GitHub-hosted runners. Repository workflow tokens default to read-only; only the
@@ -129,8 +133,9 @@ updater and guarded merger request write access. Actions are SHA-pinned and
 restricted to the three approved action revisions used by these workflows.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and the
-[MIT license](LICENSE). Add a trusted OpenStaticFish team to `CODEOWNERS` and the
-maintainer-access ruleset when expanding the maintainer group.
+[MIT license](LICENSE). Grant a trusted OpenStaticFish team repository write access
+and add it to `CODEOWNERS` when expanding the maintainer group. Do not grant
+outside collaborators write access; use read/triage access and fork PRs instead.
 
 ## Development
 

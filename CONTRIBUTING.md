@@ -22,13 +22,16 @@ for **every external contributor**, even returning contributors.
 
 Only authorized OpenStaticFish organization maintainers can merge contributions.
 `main` requires a pull request, passing `check`, an up-to-date branch, and resolved
-review conversations. Human contributions require code-owner approval; org owners
+review conversations. Code and workflow changes require code-owner approval; org owners
 can merge their own PRs after the mandatory checks, since the org initially has
 one maintainer. Direct pushes, force pushes, and deleting `main` are blocked.
 
-The only automation exception is the guarded update bot: it can merge its own
-successful, internal update PRs that modify only `sources.json` and/or `flake.lock`.
-It cannot bypass the mandatory CI or write directly to `main`.
+Only `sources.json` and `flake.lock` are exempt from code-owner review, so the
+guarded update bot can merge its own successful, internal metadata update PRs.
+It cannot bypass mandatory CI or write directly to `main`. External metadata PRs
+still require an organization maintainer to merge them; the bot will not merge
+PRs authored by people or opened from forks. Repository write access is reserved
+for organization maintainers, never outside collaborators.
 
 Never commit credentials, Minecraft assets, prepared resources, account data, or
 worlds. Report security vulnerabilities privately as described in `SECURITY.md`.
